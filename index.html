@@ -236,7 +236,7 @@
   <script>
     // Your Kit form ID: in Kit go to Grow → Landing Pages & Forms → your form → Publish → HTML,
     // and copy the number from action="https://app.kit.com/forms/XXXXXXX/subscriptions".
-    var KIT_FORM_ID = "REPLACE_WITH_KIT_FORM_ID";
+    var KIT_FORM_ID = "10117375";
 
     var form = document.getElementById("waitlist");
     var email = document.getElementById("email");
@@ -283,8 +283,15 @@
           form.reset();
           show("Thanks! Check your inbox to confirm your spot.", "success");
         })
-        .catch(function () {
-          show("Something went wrong. Please try again in a moment.", "error");
+        .catch(function (error) {
+          // Kit rejected the email (e.g. invalid address).
+          if (error.message === "rejected") {
+            show("Something went wrong. Please check your email and try again.", "error");
+            return;
+          }
+          // The browser couldn't reach Kit in the background, so submit the form
+          // normally and let Kit show its own confirmation page.
+          form.submit();
         })
         .finally(function () {
           button.disabled = false;
