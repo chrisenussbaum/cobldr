@@ -1,7 +1,8 @@
 # Branding
 
 - `logo.png` — master CoBldr logo (2000×2000, white lettering on `#4f46e5`).
-- `make_icons.py` — regenerates every icon below from `logo.png`.
+- `logo-mark.png` — small logo shown in the page header (generated).
+- `make_icons.py` — regenerates `logo-mark.png` and every icon below from `logo.png`.
 
 | File (site root) | Size | Used by |
 | --- | --- | --- |

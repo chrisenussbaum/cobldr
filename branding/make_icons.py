@@ -26,6 +26,8 @@ small = {
     48: thickened(7).resize((48, 48), LZ),
 }
 small[16].save("favicon-16x16.png")
+# Header logo on the page: shown at 36px, saved at 4x for sharp high-DPI screens.
+thickened(7).resize((144, 144), LZ).save("branding/logo-mark.png", optimize=True)
 small[32].save("favicon-32x32.png")
 small[48].save("favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)], append_images=[small[16], small[32]])
 
