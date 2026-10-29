@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cobldr — Collaborate and build projects together</title>
+  <meta name="description" content="cobldr is a place to collaborate and build projects together. Join the waitlist to get early access when we launch.">
+  <link rel="canonical" href="https://cobldr.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cobldr.com/">
+  <meta property="og:title" content="cobldr — Collaborate and build projects together">
+  <meta property="og:description" content="Join the waitlist to get early access when we launch.">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0f1115">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M9 12h14v4H9zM9 18h9v4H9z' fill='white'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #0f1115;
+      --muted: #5b6170;
+      --border: #e3e5ea;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-text: #ffffff;
+      --success: #15803d;
+      --error: #b91c1c;
+      --glow: rgba(79, 70, 229, 0.14);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --surface: #171a21;
+        --text: #f3f4f6;
+        --muted: #9aa1ae;
+        --border: #2a2f3a;
+        --accent: #6366f1;
+        --accent-hover: #818cf8;
+        --success: #4ade80;
+        --error: #f87171;
+        --glow: rgba(99, 102, 241, 0.22);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-image: radial-gradient(60rem 30rem at 50% -10rem, var(--glow), transparent 70%);
+      background-repeat: no-repeat;
+    }
+
+    header, footer {
+      width: 100%;
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 0.45rem;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem 4rem;
+    }
+    .hero {
+      width: 100%;
+      max-width: 36rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.1rem, 6vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin: 0 0 1rem;
+      font-weight: 700;
+    }
+    .lede {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 auto 2.25rem;
+      max-width: 30rem;
+    }
+
+    form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0; border: 0;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+    .hp { position: absolute; left: -9999px; }
+    input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      height: 3rem;
+      padding: 0 1rem;
+      font: inherit;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input[type="email"]::placeholder { color: var(--muted); }
+    input[type="email"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+    button {
+      height: 3rem;
+      padding: 0 1.25rem;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-text);
+      background: var(--accent);
+      border: 0;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    button:hover { background: var(--accent-hover); }
+    button:focus-visible { outline: 3px solid var(--glow); outline-offset: 2px; }
+    button:disabled { opacity: 0.7; cursor: progress; }
+
+    .status {
+      min-height: 1.5rem;
+      margin: 1rem 0 0;
+      font-size: 0.95rem;
+    }
+    .status.success { color: var(--success); }
+    .status.error { color: var(--error); }
+    .fineprint {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      form { flex-direction: column; }
+      input[type="email"] { flex: none; width: 100%; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/" aria-label="cobldr home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 32 32"><path d="M4 8h24v6H4zM4 18h15v6H4z" fill="#fff"/></svg>
+      </span>
+      cobldr
+    </a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="badge">Coming soon</span>
+      <h1>Collaborate and build projects together.</h1>
+      <p class="lede">cobldr is where people team up to turn ideas into finished projects. We're putting on the finishing touches — join the waitlist and be first in when we launch.</p>
+
+      <form id="waitlist" method="post" novalidate>
+        <label class="visually-hidden" for="email">Email address</label>
+        <input id="email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required>
+        <div class="hp" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <p class="fineprint">No spam. We'll only email you about the launch.</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year">2026</span> cobldr
+  </footer>
+
+  <script>
+    // Your Kit form ID: in Kit go to Grow → Landing Pages & Forms → your form → Publish → HTML,
+    // and copy the number from action="https://app.kit.com/forms/XXXXXXX/subscriptions".
+    var KIT_FORM_ID = "REPLACE_WITH_KIT_FORM_ID";
+
+    var form = document.getElementById("waitlist");
+    var email = document.getElementById("email");
+    var button = form.querySelector("button");
+    var status = document.getElementById("status");
+    var endpoint = "https://app.kit.com/forms/" + KIT_FORM_ID + "/subscriptions";
+
+    form.action = endpoint;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function show(message, kind) {
+      status.textContent = message;
+      status.className = "status " + kind;
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Bots fill in the hidden field; quietly pretend it worked.
+      if (form.website.value) {
+        show("Thanks! You're on the list.", "success");
+        return;
+      }
+      if (!email.checkValidity()) {
+        show("Please enter a valid email address.", "error");
+        email.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Joining…";
+      show("", "");
+
+      var data = new FormData();
+      data.append("email_address", email.value.trim());
+
+      fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        .then(function (response) {
+          return response.json().catch(function () { return {}; }).then(function (body) {
+            if (!response.ok || (body.status && body.status !== "success")) throw new Error("rejected");
+          });
+        })
+        .then(function () {
+          form.reset();
+          show("Thanks! Check your inbox to confirm your spot.", "success");
+        })
+        .catch(function () {
+          show("Something went wrong. Please try again in a moment.", "error");
+        })
+        .finally(function () {
+          button.disabled = false;
+          button.textContent = "Join the waitlist";
+        });
+    });
+  </script>
+</body>
+</html>
