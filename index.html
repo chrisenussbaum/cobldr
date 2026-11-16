@@ -131,10 +131,23 @@
 
     form {
       display: flex;
-      gap: 0.5rem;
+      flex-direction: column;
+      gap: 0.75rem;
       max-width: 28rem;
       margin: 0 auto;
+      text-align: left;
     }
+    .form-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .question-label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .question-label span { color: var(--muted); font-weight: 400; }
     .visually-hidden {
       position: absolute;
       width: 1px; height: 1px;
@@ -142,7 +155,7 @@
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
     }
     .hp { position: absolute; left: -9999px; }
-    input[type="email"] {
+    input[type="email"], textarea {
       flex: 1;
       min-width: 0;
       height: 3rem;
@@ -156,8 +169,17 @@
       outline: none;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
-    input[type="email"]::placeholder { color: var(--muted); }
-    input[type="email"]:focus {
+    textarea {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 5.5rem;
+      padding: 0.75rem 1rem;
+      line-height: 1.5;
+      resize: vertical;
+    }
+    input[type="email"]::placeholder, textarea::placeholder { color: var(--muted); }
+    input[type="email"]:focus, textarea:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--glow);
     }
@@ -199,7 +221,7 @@
     }
 
     @media (max-width: 480px) {
-      form { flex-direction: column; }
+      .form-row { flex-direction: column; }
       input[type="email"] { flex: none; width: 100%; }
       button { width: 100%; }
     }
@@ -220,13 +242,19 @@
       <p class="lede">CoBldr is where people team up to turn ideas into finished projects. We're putting on the finishing touches — join the waitlist and be first in when we launch.</p>
 
       <form id="waitlist" novalidate>
-        <label class="visually-hidden" for="email">Email address</label>
-        <input id="email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required>
+        <div>
+          <label class="question-label" for="answer">What are you trying to build, and what's stopping you? <span>(optional)</span></label>
+          <textarea id="answer" name="answer" maxlength="1000" placeholder="e.g. A budgeting app for students, but I can't find a designer to team up with."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="visually-hidden" for="email">Email address</label>
+          <input id="email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit">Join the waitlist</button>
+        </div>
         <div class="hp" aria-hidden="true">
           <label for="website">Leave this empty</label>
           <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
         </div>
-        <button type="submit">Join the waitlist</button>
       </form>
       <p id="status" class="status" role="status" aria-live="polite"></p>
       <p class="fineprint">No spam. We'll only email you about the launch.</p>
@@ -244,6 +272,7 @@
 
       var form = document.getElementById("waitlist");
       var email = document.getElementById("email");
+      var answer = document.getElementById("answer");
       var button = form.querySelector("button");
       var statusEl = document.getElementById("status");
 
@@ -275,6 +304,7 @@
         // Form-encoded body keeps this a "simple" request, so the browser sends it without a CORS preflight.
         var data = new URLSearchParams();
         data.append("email", email.value.trim());
+        data.append("answer", answer.value.trim());
         data.append("source", document.referrer);
 
         fetch(ENDPOINT, { method: "POST", body: data })
