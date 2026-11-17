@@ -191,7 +191,9 @@
     .who { display: flex; align-items: center; gap: 0.625rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
     .who b, .ask b { color: var(--text); font-weight: 500; }
     .avatar { display: grid; place-items: center; flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 999px; background: var(--chip); color: var(--chip-text); font-size: 0.6875rem; font-weight: 600; }
-    .avatar.tint { background: var(--tint); color: var(--tint-text); }
+    /* Sample people's photos (Unsplash, see people/CREDITS.md); the initials underneath show if a photo doesn't load. */
+    .avatar { position: relative; overflow: hidden; box-shadow: 0 0 0 1px var(--border); }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .ask { position: relative; z-index: 1; margin: -2rem 0 0 1.25rem; padding: 1rem; }
     .ask .who { margin: 0 0 0.5rem; padding: 0; border: 0; line-height: 1.25; }
     .ask .who div { display: grid; }
@@ -375,10 +377,10 @@
               <span class="pill">Design</span>
               <span class="pill done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Product</span>
             </div>
-            <div class="who"><span class="avatar">MR</span><span><b>Maya R.</b> · Pharmacist turned founder</span></div>
+            <div class="who"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="28" height="28" loading="lazy" decoding="async"></span><span><b>Maya R.</b> · Pharmacist turned founder</span></div>
           </div>
           <div class="card ask">
-            <div class="who"><span class="avatar tint">DK</span><div><b>Dev K. asked to join</b><span>Engineering · 10 hrs/week</span></div></div>
+            <div class="who"><span class="avatar">DK<img src="/people/dev.jpg" alt="" width="28" height="28" loading="lazy" decoding="async"></span><div><b>Dev K. asked to join</b><span>Engineering · 10 hrs/week</span></div></div>
             <p>&ldquo;My mom ran a pharmacy for 20 years. I watched her do this every night after closing.&rdquo;</p>
           </div>
           <div class="card intro"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></span>Accepted <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> intro sent</div>
