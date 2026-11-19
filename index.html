@@ -103,16 +103,8 @@
 
     main { flex: 1; }
     .hero-band { position: relative; isolation: isolate; }
-    /* A soft violet glow behind the headline, no pattern (same as the app). */
+    /* A plain background: the problem cards and the violet button carry the colour (same as the app). */
     .hero-band { overflow: hidden; }
-    .hero-band::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background-image: radial-gradient(50% 50% at 50% 40%, var(--glow), transparent 70%);
-    }
     /* Centred headline and form, with everyday problems floating around it on wide screens (as in the app). */
     .hero {
       position: relative;
