@@ -40,7 +40,6 @@
       --chip-text: #18181b;
       --tint: #f5f3ff;
       --tint-text: #4a37c0;
-      --dot: rgba(15, 17, 21, 0.13);
       --shadow: rgba(15, 17, 21, 0.08);
     }
     @media (prefers-color-scheme: dark) {
@@ -60,7 +59,6 @@
         --chip-text: #f3f4f6;
         --tint: #241f45;
         --tint-text: #c9c1ff;
-        --dot: rgba(243, 244, 246, 0.13);
         --shadow: rgba(0, 0, 0, 0.35);
       }
     }
@@ -105,32 +103,29 @@
 
     main { flex: 1; }
     .hero-band { position: relative; isolation: isolate; }
-    /* A faint dot grid with a soft violet glow behind the preview, fading out at the bottom (same as the app). */
+    /* A soft violet glow behind the headline, no pattern (same as the app). */
+    .hero-band { overflow: hidden; }
     .hero-band::before {
       content: "";
       position: absolute;
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      background-image:
-        radial-gradient(55% 55% at 72% 45%, var(--glow), transparent 70%),
-        radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0);
-      background-size: 100% 100%, 22px 22px;
-      -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
-      mask-image: linear-gradient(to bottom, #000 70%, transparent);
+      background-image: radial-gradient(50% 50% at 50% 40%, var(--glow), transparent 70%);
     }
+    /* Centred headline and form, with everyday problems floating around it on wide screens (as in the app). */
     .hero {
+      position: relative;
       width: 100%;
-      max-width: 64rem;
+      max-width: 40rem;
       margin: 0 auto;
-      padding: 2rem 1rem 4rem;
-      display: grid;
-      gap: 3rem;
-      align-items: center;
+      padding: 2.5rem 1rem 3rem;
     }
-    @media (min-width: 1024px) {
-      .hero { grid-template-columns: 1.05fr 1fr; gap: 2.5rem; padding: 3.5rem 1rem 6rem; }
-    }
+    .hero .badge, .hero h1, .hero .lede { text-align: center; }
+    .hero > div { display: grid; }
+    .hero .badge { justify-self: center; }
+    .hero .lede { margin-left: auto; margin-right: auto; }
+    @media (min-width: 1280px) { .hero { padding: 7rem 1rem 8rem; } }
     .badge {
       display: inline-block;
       padding: 0.3rem 0.8rem;
@@ -158,62 +153,33 @@
     a.inline { color: var(--link); font-weight: 500; text-decoration: none; }
     a.inline:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-    /* The CoBldr loop, drawn with the same parts as the app: an idea, a builder's reason to join, the introduction. */
-    .preview { position: relative; display: grid; width: 100%; max-width: 28rem; margin: 0 auto; user-select: none; }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      box-shadow: 0 20px 25px -5px var(--shadow), 0 8px 10px -6px var(--shadow);
+    /* Sample problems (made-up people, photos from Unsplash: see people/CREDITS.md). Same six as the app. */
+    .pcard {
+      display: grid; gap: 0.75rem; width: 16rem; padding: 1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px var(--shadow), 0 4px 6px -4px var(--shadow);
+      text-align: left;
     }
-    .idea { padding: 1.25rem 1.25rem 3rem; }
-    .row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 0.25rem;
-      padding: 0.15rem 0.65rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.75rem; font-weight: 500; white-space: nowrap;
-      background: var(--chip); color: var(--chip-text);
-    }
-    .pill svg { width: 0.75rem; height: 0.75rem; }
-    .pill.ok { background: color-mix(in oklab, var(--success) 10%, transparent); color: var(--success); }
-    .pill.done { background: var(--surface); border-color: var(--border); color: var(--muted); text-decoration: line-through; }
-    .meter { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
-    .meter span { display: inline-flex; gap: 3px; }
-    .meter i { width: 0.5rem; height: 0.5rem; border-radius: 2px; background: var(--chip); box-shadow: inset 0 0 0 1px var(--border); }
-    .meter i.on { background: var(--accent); box-shadow: none; }
-    .problem { margin-top: 1rem; border-left: 2px solid var(--accent); padding-left: 0.875rem; }
-    .problem small { display: block; margin-bottom: 0.25rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--link); }
-    .problem p { margin: 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.35; }
-    .idea-title { margin: 1rem 0 0; font-weight: 600; letter-spacing: -0.01em; }
-    .roles { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
-    .who { display: flex; align-items: center; gap: 0.625rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
-    .who b, .ask b { color: var(--text); font-weight: 500; }
-    .avatar { display: grid; place-items: center; flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 999px; background: var(--chip); color: var(--chip-text); font-size: 0.6875rem; font-weight: 600; }
-    /* Sample people's photos (Unsplash, see people/CREDITS.md); the initials underneath show if a photo doesn't load. */
-    .avatar { position: relative; overflow: hidden; box-shadow: 0 0 0 1px var(--border); }
+    .pcard small { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+    .pcard p { margin: 0; border-left: 2px solid var(--accent); padding-left: 0.75rem; font-size: 0.875rem; line-height: 1.35; }
+    .pcard .by { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); }
+    .pcard .by b { color: var(--text); font-weight: 500; }
+    .avatar { position: relative; overflow: hidden; display: grid; place-items: center; flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--chip); color: var(--chip-text); font-size: 0.625rem; font-weight: 600; box-shadow: 0 0 0 1px var(--border); }
     .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .ask { position: relative; z-index: 1; margin: -2rem 0 0 1.25rem; padding: 1rem; }
-    .ask .who { margin: 0 0 0.5rem; padding: 0; border: 0; line-height: 1.25; }
-    .ask .who div { display: grid; }
-    .ask p { margin: 0; font-size: 0.8125rem; line-height: 1.4; color: var(--muted); }
-    .intro {
-      position: relative; z-index: 2;
-      display: flex; align-items: center; gap: 0.5rem;
-      width: fit-content;
-      margin: -0.875rem 0.75rem 0 auto;
-      padding: 0.375rem 0.875rem 0.375rem 0.5rem;
-      border-radius: 999px;
-      font-size: 0.75rem; font-weight: 500;
+    .floating { display: none; }
+    @media (min-width: 1280px) {
+      .floating { display: block; position: absolute; inset: 0; max-width: 80rem; margin: 0 auto; pointer-events: none; user-select: none; }
+      .floating .pcard { position: absolute; }
+      .floating .s1 { left: 2%; top: 6%; transform: rotate(-3deg); }
+      .floating .s2 { left: 6%; top: 40%; transform: rotate(2deg); }
+      .floating .s3 { left: 1%; top: 72%; transform: rotate(-1deg); }
+      .floating .s4 { right: 2%; top: 4%; transform: rotate(3deg); }
+      .floating .s5 { right: 5%; top: 38%; transform: rotate(-2deg); }
+      .floating .s6 { right: 1%; top: 70%; transform: rotate(1deg); }
     }
-    .intro .ic { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: color-mix(in oklab, var(--success) 10%, transparent); color: var(--success); }
-    .intro svg { width: 0.875rem; height: 0.875rem; }
-    .intro .arrow { width: 0.75rem; height: 0.75rem; color: var(--muted); }
-    @media (min-width: 640px) {
-      .ask { margin-left: 3rem; margin-right: -1.5rem; }
-      .intro { margin-right: -2.5rem; }
-    }
+    .problem-row { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 1rem 3rem; user-select: none; }
+    .problem-row .pcard { flex-shrink: 0; scroll-snap-align: start; }
+    @media (min-width: 1280px) { .problem-row { display: none; } }
 
     /* How it works */
     .how { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
@@ -338,6 +304,14 @@
 
   <main>
     <div class="hero-band">
+      <div class="floating" aria-hidden="true">
+        <div class="pcard s1"><small>Sports</small><p>Youth soccer coaches sort out games, rides and snack duty over endless email chains.</p><div class="by"><span class="avatar">TG<img src="/people/tomas.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Tomás</b> is looking for Engineering</span></div></div>
+        <div class="pcard s2"><small>Music</small><p>Small bands spend weeks emailing venues just to book one gig.</p><div class="by"><span class="avatar">PS<img src="/people/priya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Priya</b> is looking for Design · 1 joined</span></div></div>
+        <div class="pcard s3"><small>Food</small><p>Backyard gardeners grow more than they can eat, and the extra goes to waste.</p><div class="by"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Maya</b> is looking for Engineering</span></div></div>
+        <div class="pcard s4"><small>Health</small><p>Families caring for an aging parent juggle appointments across a dozen group texts.</p><div class="by"><span class="avatar">GL<img src="/people/grace.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Grace</b> is looking for Design · 2 joined</span></div></div>
+        <div class="pcard s5"><small>Education</small><p>Students can&rsquo;t tell which campus clubs are still active, so good ones fade out.</p><div class="by"><span class="avatar">MT<img src="/people/marcus.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Marcus</b> is looking for Marketing</span></div></div>
+        <div class="pcard s6"><small>Work</small><p>Freelancers chase late invoices on their own, one awkward email at a time.</p><div class="by"><span class="avatar">AN<img src="/people/aisha.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Aisha</b> is looking for Engineering · 1 joined</span></div></div>
+      </div>
       <section class="hero">
         <div>
           <span class="badge">Waitlist open · private beta underway</span>
@@ -363,31 +337,15 @@
           <p class="fineprint">No spam. We'll only email you about your invite and the launch. By joining, you agree to the <a class="inline" href="https://app.cobldr.com/privacy">Privacy Policy</a>. Already invited? <a class="inline" href="https://app.cobldr.com/sign-in">Sign in at app.cobldr.com</a></p>
         </div>
 
-        <div class="preview" aria-hidden="true">
-          <div class="card idea">
-            <div class="row">
-              <span class="pill ok">Looking for teammates</span>
-              <span class="meter"><span><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>Prototype</span>
-            </div>
-            <div class="problem">
-              <small>The problem</small>
-              <p>Independent pharmacies lose hours every week fixing insurance rejections by hand.</p>
-            </div>
-            <p class="idea-title">Rejection inbox for independent pharmacies</p>
-            <div class="roles">
-              <span class="pill">Engineering</span>
-              <span class="pill">Design</span>
-              <span class="pill done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Product</span>
-            </div>
-            <div class="who"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="28" height="28" loading="lazy" decoding="async"></span><span><b>Maya R.</b> · Pharmacist turned founder</span></div>
-          </div>
-          <div class="card ask">
-            <div class="who"><span class="avatar">DK<img src="/people/dev.jpg" alt="" width="28" height="28" loading="lazy" decoding="async"></span><div><b>Dev K. asked to join</b><span>Engineering · 10 hrs/week</span></div></div>
-            <p>&ldquo;My mom ran a pharmacy for 20 years. I watched her do this every night after closing.&rdquo;</p>
-          </div>
-          <div class="card intro"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></span>Accepted <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> intro sent</div>
-        </div>
       </section>
+      <div class="problem-row" aria-hidden="true">
+        <div class="pcard"><small>Sports</small><p>Youth soccer coaches sort out games, rides and snack duty over endless email chains.</p><div class="by"><span class="avatar">TG<img src="/people/tomas.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Tomás</b> is looking for Engineering</span></div></div>
+        <div class="pcard"><small>Music</small><p>Small bands spend weeks emailing venues just to book one gig.</p><div class="by"><span class="avatar">PS<img src="/people/priya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Priya</b> is looking for Design · 1 joined</span></div></div>
+        <div class="pcard"><small>Food</small><p>Backyard gardeners grow more than they can eat, and the extra goes to waste.</p><div class="by"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Maya</b> is looking for Engineering</span></div></div>
+        <div class="pcard"><small>Health</small><p>Families caring for an aging parent juggle appointments across a dozen group texts.</p><div class="by"><span class="avatar">GL<img src="/people/grace.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Grace</b> is looking for Design · 2 joined</span></div></div>
+        <div class="pcard"><small>Education</small><p>Students can&rsquo;t tell which campus clubs are still active, so good ones fade out.</p><div class="by"><span class="avatar">MT<img src="/people/marcus.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Marcus</b> is looking for Marketing</span></div></div>
+        <div class="pcard"><small>Work</small><p>Freelancers chase late invoices on their own, one awkward email at a time.</p><div class="by"><span class="avatar">AN<img src="/people/aisha.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Aisha</b> is looking for Engineering · 1 joined</span></div></div>
+      </div>
     </div>
 
     <section class="how" aria-labelledby="how-it-works">
