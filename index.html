@@ -103,16 +103,8 @@
 
     main { flex: 1; }
     .hero-band { position: relative; isolation: isolate; }
-    /* A soft violet glow behind the headline, no pattern (same as the app). */
+    /* A plain background: the problem cards and the violet button carry the colour (same as the app). */
     .hero-band { overflow: hidden; }
-    .hero-band::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background-image: radial-gradient(50% 50% at 50% 40%, var(--glow), transparent 70%);
-    }
     /* Centred headline and form, with everyday problems floating around it on wide screens (as in the app). */
     .hero {
       position: relative;
@@ -177,8 +169,20 @@
       .floating .s5 { right: 5%; top: 38%; transform: rotate(-2deg); }
       .floating .s6 { right: 1%; top: 70%; transform: rotate(1deg); }
     }
-    .problem-row { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 1rem 3rem; user-select: none; }
-    .problem-row .pcard { flex-shrink: 0; scroll-snap-align: start; }
+    /* Narrower screens: the cards drift slowly left in an endless loop with faded edges, no scrollbar (as in the app).
+       About one card every 3 seconds; pauses on hover or press; still for people who prefer reduced motion. */
+    .problem-row { overflow: hidden; padding-bottom: 3rem; user-select: none;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
+    .problem-track { display: flex; width: max-content; animation: marquee 18s linear infinite; }
+    .problem-track .pcard { flex-shrink: 0; margin-right: 0.75rem; }
+    .problem-row:hover .problem-track, .problem-row:active .problem-track { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .problem-row { overflow-x: auto; scrollbar-width: none; }
+      .problem-row::-webkit-scrollbar { display: none; }
+      .problem-track { animation: none; }
+    }
     @media (min-width: 1280px) { .problem-row { display: none; } }
 
     /* How it works */
@@ -339,12 +343,20 @@
 
       </section>
       <div class="problem-row" aria-hidden="true">
+        <div class="problem-track">
         <div class="pcard"><small>Sports</small><p>Youth soccer coaches sort out games, rides and snack duty over endless email chains.</p><div class="by"><span class="avatar">TG<img src="/people/tomas.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Tomás</b> is looking for Engineering</span></div></div>
         <div class="pcard"><small>Music</small><p>Small bands spend weeks emailing venues just to book one gig.</p><div class="by"><span class="avatar">PS<img src="/people/priya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Priya</b> is looking for Design · 1 joined</span></div></div>
         <div class="pcard"><small>Food</small><p>Backyard gardeners grow more than they can eat, and the extra goes to waste.</p><div class="by"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Maya</b> is looking for Engineering</span></div></div>
         <div class="pcard"><small>Health</small><p>Families caring for an aging parent juggle appointments across a dozen group texts.</p><div class="by"><span class="avatar">GL<img src="/people/grace.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Grace</b> is looking for Design · 2 joined</span></div></div>
         <div class="pcard"><small>Education</small><p>Students can&rsquo;t tell which campus clubs are still active, so good ones fade out.</p><div class="by"><span class="avatar">MT<img src="/people/marcus.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Marcus</b> is looking for Marketing</span></div></div>
         <div class="pcard"><small>Work</small><p>Freelancers chase late invoices on their own, one awkward email at a time.</p><div class="by"><span class="avatar">AN<img src="/people/aisha.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Aisha</b> is looking for Engineering · 1 joined</span></div></div>
+        <div class="pcard"><small>Sports</small><p>Youth soccer coaches sort out games, rides and snack duty over endless email chains.</p><div class="by"><span class="avatar">TG<img src="/people/tomas.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Tomás</b> is looking for Engineering</span></div></div>
+        <div class="pcard"><small>Music</small><p>Small bands spend weeks emailing venues just to book one gig.</p><div class="by"><span class="avatar">PS<img src="/people/priya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Priya</b> is looking for Design · 1 joined</span></div></div>
+        <div class="pcard"><small>Food</small><p>Backyard gardeners grow more than they can eat, and the extra goes to waste.</p><div class="by"><span class="avatar">MR<img src="/people/maya.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Maya</b> is looking for Engineering</span></div></div>
+        <div class="pcard"><small>Health</small><p>Families caring for an aging parent juggle appointments across a dozen group texts.</p><div class="by"><span class="avatar">GL<img src="/people/grace.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Grace</b> is looking for Design · 2 joined</span></div></div>
+        <div class="pcard"><small>Education</small><p>Students can&rsquo;t tell which campus clubs are still active, so good ones fade out.</p><div class="by"><span class="avatar">MT<img src="/people/marcus.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Marcus</b> is looking for Marketing</span></div></div>
+        <div class="pcard"><small>Work</small><p>Freelancers chase late invoices on their own, one awkward email at a time.</p><div class="by"><span class="avatar">AN<img src="/people/aisha.jpg" alt="" width="24" height="24" loading="lazy" decoding="async"></span><span><b>Aisha</b> is looking for Engineering · 1 joined</span></div></div>
+        </div>
       </div>
     </div>
 
