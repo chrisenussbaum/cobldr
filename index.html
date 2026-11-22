@@ -406,6 +406,13 @@
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
+      // Where this signup came from, for the Sheet's Referrer column: the ?ref= tag from a shared link (e.g.
+      // cobldr.com/?ref=reddit-sideproject), then the page the visitor came from, if the browser says.
+      function source() {
+        var ref = (new URLSearchParams(window.location.search).get("ref") || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 60);
+        return [ref, document.referrer].filter(Boolean).join(" · ");
+      }
+
       function show(message, kind) {
         statusEl.textContent = message;
         statusEl.className = "status " + kind;
@@ -433,12 +440,23 @@
         var data = new URLSearchParams();
         data.append("email", email.value.trim());
         data.append("answer", answer.value.trim());
-        data.append("source", document.referrer);
+        data.append("source", source());
 
-        fetch(ENDPOINT, { method: "POST", body: data })
-          .then(function (response) { return response.json(); })
-          .then(function (body) {
-            if (body.result !== "success") throw new Error(body.message || "rejected");
+        // One automatic retry after a short pause: a busy moment (many signups at once) usually clears in a second.
+        function send(attemptsLeft) {
+          return fetch(ENDPOINT, { method: "POST", body: data })
+            .then(function (response) { return response.json(); })
+            .then(function (body) {
+              if (body.result !== "success") throw new Error(body.message || "rejected");
+            })
+            .catch(function (error) {
+              if (attemptsLeft < 1 || error.message === "invalid email") throw error;
+              return new Promise(function (resolve) { setTimeout(resolve, 1500); }).then(function () { return send(attemptsLeft - 1); });
+            });
+        }
+
+        send(1)
+          .then(function () {
             form.reset();
             show("Thanks! You're on the list. We'll email you when we launch.", "success");
           })
