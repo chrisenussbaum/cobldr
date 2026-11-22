@@ -4,7 +4,7 @@ Made-up people shown on the waitlist page and the app's signed-out pages (same s
 
 | File | Shown as | Photo | Photographer |
 | --- | --- | --- | --- |
-| `tomas.jpg` | Tomás G., youth soccer coach | https://unsplash.com/photos/man-in-red-crew-neck-shirt-ARBQCe2GrjQ | Nicolas Horn (https://unsplash.com/@sysengineer) |
+| `tomas.jpg` | Tomas G., youth soccer coach | https://unsplash.com/photos/man-in-red-crew-neck-shirt-ARBQCe2GrjQ | Nicolas Horn (https://unsplash.com/@sysengineer) |
 | `priya.jpg` | Priya S., musician | https://unsplash.com/photos/woman-wearing-black-blazer-standing-and-smiling-near-body-of-water-dmXQ81J_yI8 | Ashwini Chaudhary (https://unsplash.com/@suicide_chewbacca) |
 | `maya.jpg` | Maya R., backyard gardener | https://unsplash.com/photos/a-woman-with-a-smile-on-her-face-21ckukPU3qA | Abenezer Shewaga (https://unsplash.com/@abenezer_shewaga) |
 | `grace.jpg` | Grace L., family caregiver | https://unsplash.com/photos/a-woman-with-dark-hair-and-a-blue-striped-shirt-hICkO1X9Www | Vidak (https://unsplash.com/@vidak) |
